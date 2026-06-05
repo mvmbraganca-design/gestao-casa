@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useLocalStorage } from './hooks/useLocalStorage.js'
+import { useServerState } from './hooks/useServerState.js'
 import { FUNCIONARIAS_EXEMPLO } from './utils.js'
 import Funcionarias from './components/Funcionarias.jsx'
 import Presenca from './components/Presenca.jsx'
@@ -16,11 +16,11 @@ const ABAS = [
 export default function App() {
   const [aba, setAba] = useState('funcionarias')
 
-  // Estados persistidos no navegador.
-  const [funcionarias, setFuncionarias] = useLocalStorage('gc:funcionarias', FUNCIONARIAS_EXEMPLO)
-  const [presenca, setPresenca] = useLocalStorage('gc:presenca', {})
-  const [pagamentos, setPagamentos] = useLocalStorage('gc:pagamentos', {})
-  const [tarefas, setTarefas] = useLocalStorage('gc:tarefas', [])
+  // Estados persistidos no servidor local (SQLite), compartilhados entre aparelhos.
+  const [funcionarias, setFuncionarias] = useServerState('funcionarias', FUNCIONARIAS_EXEMPLO)
+  const [presenca, setPresenca] = useServerState('presenca', {})
+  const [pagamentos, setPagamentos] = useServerState('pagamentos', {})
+  const [tarefas, setTarefas] = useServerState('tarefas', [])
 
   return (
     <div className="app">
